@@ -135,7 +135,7 @@ BOOST_CGI_NAMESPACE_BEGIN
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
     friend typename traits::request_type;//typename request_type;
 #else
-    friend class traits::request_type;
+    friend typename traits::request_type;
 #endif
     //friend class request_type;
   };

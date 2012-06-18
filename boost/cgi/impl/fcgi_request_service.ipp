@@ -203,7 +203,7 @@ BOOST_CGI_NAMESPACE_BEGIN
         
       if (request_method == "GET")
       {
-        if (parse_get_vars(impl, ec))
+        if (this->parse_get_vars(impl, ec))
           return ec;
       }
       else
@@ -222,11 +222,11 @@ BOOST_CGI_NAMESPACE_BEGIN
           }
         }
         
-        if (parse_post_vars(impl, ec))
+        if (this->parse_post_vars(impl, ec))
 	      return ec;
       }
       if (opts & common::parse_cookies_only)
-        parse_cookie_vars(impl, "HTTP_COOKIE", ec);
+        this->parse_cookie_vars(impl, "HTTP_COOKIE", ec);
         
       if (ec == error::eof) {
         ec = boost::system::error_code();
@@ -325,8 +325,8 @@ BOOST_CGI_NAMESPACE_BEGIN
         
       if (request_method == "GET")
       {
-        if (parse_get_vars(impl, ec))
-          return ec;
+        if (this->parse_get_vars(impl, ec))
+          return;
       }
       else
       if (request_method == "POST" 
@@ -344,11 +344,11 @@ BOOST_CGI_NAMESPACE_BEGIN
           }
         }
         
-        if (parse_post_vars(impl, ec))
-	      return ec;
+        if (this->parse_post_vars(impl, ec))
+	      return;
       }
       if (opts & common::parse_cookies_only)
-        parse_cookie_vars(impl, ec);
+        this->parse_cookie_vars(impl, ec);
         
       if (ec == error::eof) {
         ec = boost::system::error_code();
@@ -418,7 +418,7 @@ BOOST_CGI_NAMESPACE_BEGIN
     fcgi_request_service<Protocol>::read_env_vars(
         implementation_type& impl, boost::system::error_code& ec)
     {
-      while(!ec && !(status(impl) & common::env_read))
+      while(!ec && !(this->status(impl) & common::env_read))
       {
         if (this->read_header(impl, ec))
           return ec;
@@ -428,7 +428,7 @@ BOOST_CGI_NAMESPACE_BEGIN
         if (state)
         { // the header has been handled and all is ok; continue.
           impl.client_.status(common::params_read);
-          status(impl, (common::request_status)(status(impl) | common::env_read));
+          this->status(impl, (common::request_status)(this->status(impl) | common::env_read));
         }
         else
         if (!state)
@@ -452,7 +452,7 @@ BOOST_CGI_NAMESPACE_BEGIN
             ec = error::couldnt_write_complete_packet;
         }
 
-      } // while(!ec && !(status(impl) & common::env_read))
+      } // while(!ec && !(this->status(impl) & common::env_read))
       return ec;
     }
 

@@ -156,7 +156,6 @@ BOOST_CGI_NAMESPACE_BEGIN
 
      void shutdown_service()
      {
-       acceptor_service_.shutdown_service();
      }
 
      /// Check if the given implementation is open.
@@ -363,7 +362,7 @@ BOOST_CGI_NAMESPACE_BEGIN
      boost::system::error_code
        close(implementation_type& impl, boost::system::error_code& ec)
      {
-       return boost::system::error_code(348, boost::system::system_category);
+       return boost::system::error_code(348, boost::system::system_category());
      }
 
      typename implementation_type::endpoint_type
