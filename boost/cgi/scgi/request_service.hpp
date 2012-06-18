@@ -126,6 +126,10 @@ BOOST_CGI_NAMESPACE_BEGIN
       );
     }
 
+    void shutdown_service()
+    {
+    }
+
     /// Close the request.
     int close(implementation_type& impl,
       common::http::status_code hsc = common::http::ok

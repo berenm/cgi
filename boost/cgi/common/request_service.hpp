@@ -63,6 +63,11 @@ BOOST_CGI_NAMESPACE_BEGIN
       service_impl_.destroy(impl);
     }
 
+    void shutdown_service()
+    {
+      service_impl_.shutdown_service();
+    }
+
     impl_type null() const
     {
       return service_impl_.null();
